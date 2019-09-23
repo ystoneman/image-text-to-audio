@@ -1,4 +1,5 @@
 import boto3
+import os
 # import datetime
 
 rekognition = boto3.client('rekognition')
@@ -13,7 +14,7 @@ def lambda_handler(event, context):
     detections = rekognition.detect_text(
         Image={
             'S3Object': {
-                'Bucket': 'testbucket-rekognition-image-audio-2019-09-20t141633',
+                'Bucket': os.environ['BUCKET'],
                 'Name': 'jack-the-giant-killer-by-fwn-bayley-author-of-the-new-tale-of-a-tub-etc-with-4d4051-1024.jpg'
             }
         }
@@ -31,3 +32,5 @@ def lambda_handler(event, context):
         VoiceId='Amy',
         OutputS3BucketName='testbucket-rekognition-image-audio-2019-09-20t141633'
     )
+
+    # next: email the mp3 to myself
